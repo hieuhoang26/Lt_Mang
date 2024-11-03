@@ -1,1 +1,2 @@
 user1:demo.txt:private
+user1:test.txt:private

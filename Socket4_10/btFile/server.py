@@ -105,19 +105,6 @@ def handleClient(client_socket, client_address):
             if command == 'exit':
                 # client_socket.send("exit".encode("utf-8"))
                 break
-            elif command.startswith("ls"):
-                items = os.listdir(FILE_DIR)
-                files_list = ""
-                for item in items:
-                    if os.path.isdir(os.path.join(FILE_DIR, item)):
-                        files_list += f"*{item}\n"
-                    else:
-                        files_list += f"-{item}\n"
-                client_socket.send(files_list.encode("utf-8"))
-            elif command.startswith("log "):
-                keyword = command.split()[1]
-                rs = read_log(keyword)
-                client_socket.send(rs.encode("utf-8"))
             elif command.startswith("upload "):
                 filedir = command.split()[1]
                 handleUpload(client_socket, filedir, username)
