@@ -11,8 +11,10 @@ from email.mime.image import MIMEImage
 from email.mime.text import MIMEText
 import getpass
 
-SMTP_SERVER = 'aspmx.1.google.com'
-SMTP_PORT = 25 #587
+# SMTP_SERVER = 'aspmx.1.google.com'
+SMTP_SERVER = 'smtp.gmail.com'
+# SMTP_PORT = 25 #587
+SMTP_PORT = 587
 
 def send_email(sender,receipt):
     msg = MIMEMultipart()
@@ -24,6 +26,7 @@ def send_email(sender,receipt):
     part = MIMEText('text','plain')
     part.set_payload(message)
     msg.attach(part)
+
     # create smtp session
     session = smtplib.SMTP(SMTP_SERVER,SMTP_PORT)
     session.set_debuglevel(1)
@@ -34,7 +37,7 @@ def send_email(sender,receipt):
     session.login(sender,password)
     #send 
     session.sendmail(sender, receipt, msg.as_string())
-    print("your email is send to {0}" .fomat(receipt))
+    print("your email is send to {0}" .format(receipt))
     session.quit()
     
 if __name__ == '__main__':

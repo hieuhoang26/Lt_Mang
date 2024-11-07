@@ -1,0 +1,24 @@
+Package:
+	urllib
+	requests
+
+Client: khởi tạo HTTP section – mở kết nối TCP đến HTTP server và gửi request
+	Tạo request
+		from urllib.request import urlopen
+		response = urlopen(<url>)
+	Thuộc tính 
+		read() 
+		readline() 
+		url 
+		status
+		getheaders()
+	Tuỳ biến 
+		req.add_header(‘Accept-Language’,’sv’)
+		
+	Kiểu dữ liệu : Header Content-Type trong phản hồi sẽ báo cho client biết về kiểu dữ liệu server gửi
+		response.getheader('Content-Type')
+	
+• response = urlopen('http://www.ex
+
+Server: gửi phản hồi
+

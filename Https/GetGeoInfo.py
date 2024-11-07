@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Sep  6 07:43:29 2024
-
-@author: Acer
-"""
 
 import requests
 
@@ -24,7 +19,7 @@ def get_geo_info(url):
         
         
         
-if __name__ =='_main_':
+if __name__ =='__main__':
     url = 'https://ipinfo.io/111.65.249.59/json'
     get_geo_info(url)
    

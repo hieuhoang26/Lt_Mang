@@ -6,7 +6,6 @@ Created on Fri Aug 23 07:31:52 2024
 """
 
 from urllib.request import urlopen
-from urllib.request import request
 from http.cookiejar import cookiejar
 from urllib.request import build_opener,HTTPCookieProcessor
 import datetime

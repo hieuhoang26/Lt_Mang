@@ -1,0 +1,57 @@
+# TCP vs UDP
+	- TCP là một giao thức kết nối. Trước khi truyền dữ liệu, một kết nối được thiết lập giữa client và server. -> gửi và nhận một cách đáng tin cậy
+		+ Server sử dụng socket.listen() để chờ kết nối, sau đó gọi accept() để chấp nhận kết nối từ client.
+		+ Client gọi connect() để thiết lập kết nối với server.
+		
+	- UDP là giao thức không kết nối. Client có thể gửi dữ liệu mà không cần thiết lập một kết nối với server trước.
+		+ Server  socket.recvfrom() để nhận dữ liệu và địa chỉ của client, không cần gọi accept().
+		+ Client gọi sendto() để gửi dữ liệu đến server mà không cần thiết lập kết nối
+# TCP
+	Server
+		# Tạo socket
+		server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		server_socket.bind(('localhost', 12345))  # Gán địa chỉ và cổng
+		server_socket.listen(1)  # Lắng nghe kết nối đến
+
+		print("TCP server đang lắng nghe...")
+		conn, addr = server_socket.accept()  # Chấp nhận kết nối
+		print(f"Kết nối từ {addr}")
+
+		# Nhận dữ liệu
+		data = conn.recv(1024)
+		print(f"Nhận dữ liệu: {data.decode()}")
+
+		# Gửi phản hồi
+		conn.sendall(b'Thank you for connecting!')
+		conn.close()
+		
+	Client
+		client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		client_socket.connect(('localhost', 12345))  # Kết nối đến server
+
+		# Gửi dữ liệu
+		client_socket.sendall(b'Hello, TCP server!')
+
+		# Nhận phản hồi
+		response = client_socket.recv(1024)
+		print(f"Nhận phản hồi: {response.decode()}")
+		client_socket.close()
+# UDP
+	Server
+		server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		server_socket.bind(('localhost', 12345))  # Gán địa chỉ và cổng
+
+		print("UDP server đang lắng nghe...")
+		while True:
+			data, addr = server_socket.recvfrom(1024)  # Nhận dữ liệu
+			print(f"Nhận dữ liệu từ {addr}: {data.decode()}")
+			
+			# Gửi phản hồi
+			server_socket.sendto(b'Thank you for connecting!', addr)
+			
+	Client
+		client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		client_socket.sendto(b'Hello, UDP server!', ('localhost', 12345))
+		response, addr = client_socket.recvfrom(1024)
+		print(f"Nhận phản hồi từ {addr}: {response.decode()}")
+		client_socket.close()

@@ -1,0 +1,54 @@
+Giao thức:
+	SMTP
+	POP3
+	IMAP
+Cấu trúc email
+	.mail sử dụng plain ASCII text, mã từ 1 đến 127
+	.Kết thúc dòng là CRLF
+	.Email bao gồm các header, 1 dòng trống và phần thân (body) thư
+	.Mỗi header gồm tên và giá trị, cách nhau bởi dấu phẩy
+	
+Soạn Email
+	Module email.mime cung cấp các lớp để tạo email và các đối tượng MIME
+	MIME (Multi-purpose Internet Mail Extensions): sử dụng để biến đổi các các kiểu dữ liệu data file, audio, video, image…
+	Header 
+		from email.mime.multipart import MIMEMultipart()
+		msg = MIMEMultipart()
+		msg['To'] = recipient
+		msg['From'] = sender
+		msg['Subject'] = 'Email subject..'
+	Body
+		part = MIMEText('text', 'plain')
+		message = 'Email message ….'
+		part.set_payload(message)
+		msg.attach(part)
+	
+Gửi Email
+	smtplib
+		session = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+		session.ehlo()
+		session.sendmail(sender, recipient, msg.as_string())
+		session.quit()
+		
+		import email.message, email.policy, email.utils, sys
+		text = """Hello """
+		def main():
+		message = email.message.EmailMessage(email.policy.SMTP)
+		message['To'] = 'recipient@example.com'
+		message['From'] = 'Test Sender <sender@example.com>'
+		message['Subject'] = 'Test Message'
+		message['Date'] = email.utils.formatdate(localtime=True)
+		message['Message-ID'] = email.utils.make_msgid()
+		message.set_content(text)
+		sys.stdout.buffer.write(message.as_bytes())
+		
+Nhận Email
+	POP3: poplib
+		mailbox = poplib.POP3_SSL(<POP3_SERVER>, <SERVER_PORT>)
+		mailbox.user('username')
+		mailbox.pass_('password')
+		
+	IMAP: imaplib
+		mailbox = imaplib.IMAP4_SSL(<IMAP_SERVER>, <SERVER_PORT>)
+		mailbox.login('username', 'password')
+		mailbox.select('Inbox')

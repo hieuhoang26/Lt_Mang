@@ -28,7 +28,7 @@ def change_directory(ftp, directory):
     except ftplib.all_errors as e:
         print(f"Error changing directory: {e} ")
 
-def create_directory(ftp,directory)
+def create_directory(ftp,directory):
     print("_____Function Create Directory_____")
     try:
         ftp.mkd(directory)
@@ -171,8 +171,6 @@ if __name__ == "__main__":
                 elif choice == "10":
                     command = input("Enter custom FTP command: ")
                     response = send_custom_command(ftp, command)
-                    
-                    if response
                 elif choice == "11":
                     print("Exit....")
                     break
