@@ -21,9 +21,7 @@ if __name__ == '__main__':
                 client_sk.send(bytes(ctime(), 'utf-8'))
             else:
                 client_sk.send(b"Unknown command")
-
             client_sk.close()
-
         except socket.error as e:
             print(f"Error: {e}")
     s.close()

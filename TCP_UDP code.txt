@@ -1,0 +1,42 @@
+// Ser TCP
+
+    sk = socket.socket(family=socket.AF_INET,type=socket.SOCK_STREAM)
+    sk.bind((HOST,POST))
+    try:
+        sk.listen(5)
+        client_sk, client_add = sk.accept()
+    except sk.error as e:
+        print("error: ".format(e))
+    client_sk.send("hello".encode("utf-8"))
+    data = client_sk.recv(1024)
+    print(data.decode("utf-8"))
+    client_sk.close()
+    sk.close()
+	
+// Client TCP 
+
+	sk = socket.socket(family=socket.AF_INET,type=socket.SOCK_STREAM)
+    sk.connect((HOST,POST))
+    data = sk.recv(1024)
+    print(data.decode("utf-8"))
+    sk.send("hello ser".encode("utf8"))
+    sk.close()
+	
+	
+// Ser UDP
+	
+	s = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+    s.bind((HOST,POST))
+    data, addr = s.recvfrom(1024)
+    print("Client gui {}".format(data))
+    data = 'hello client'
+    s.sendto(data.encode('utf-8'), addr)
+    s.close()
+	
+// Client UDP
+
+	s = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+    s.sendto("hello ser".encode("utf-8"),(HOST,POST))
+    data = s.recvfrom(1024)
+    print("Ser gui {}".format(data))
+    s.close()

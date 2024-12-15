@@ -22,3 +22,10 @@ images = bs.find_all('img')
 print('total', len(images))
 for i in images:
     print(i['src'])
+
+# from urllib.request import urlopen,Request
+# r=Request('https://vnexpress.net/')
+# r1=urlopen(r)
+# string = str(r1.read())
+# count = string.count('.jpg')   //png
+# print(count)

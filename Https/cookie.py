@@ -10,6 +10,8 @@ from http.cookiejar import cookiejar
 from urllib.request import build_opener,HTTPCookieProcessor
 import datetime
 
+from requests import request
+
 if __name__=='__main__':
     r = request('')
     r1= urlopen(r)

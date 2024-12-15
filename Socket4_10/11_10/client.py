@@ -4,5 +4,5 @@ if __name__ =="__main__":
     data = 'hello Ser'
     sk.sendto(data.encode('utf-8'),('127.0.0.1',9050))
     data = sk.recvfrom(1024)
-    print("Ser gui {}".format(data))
+    print("Client gui {}".format(data))
     sk.close()
